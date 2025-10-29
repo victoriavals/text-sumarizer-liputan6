@@ -8,7 +8,17 @@ Analisis dataset Liputan6 untuk text summarization menggunakan Python dan Jupyte
 
 ## 📖 Overview
 
-Project ini melakukan **Exploratory Data Analysis (EDA)** pada dataset Liputan6 untuk memahami karakteristik teks berita Indonesia dan ringkasannya. Analisis mencakup distribusi panjang teks, frekuensi kata, stopwords, dan visualisasi data.
+Project ini melakukan **Exploratory Data Analysis (EDA)** dan **Preprocessing** lengkap pada dataset Liputan6 untuk text summarization. Project ini menyediakan pipeline preprocessing yang siap digunakan untuk training model **Seq2Seq** dan **BERT Transformer**.
+
+### Features:
+- ✅ Comprehensive EDA dengan visualisasi
+- ✅ Data cleaning dan normalization
+- ✅ Tokenisasi (word-level & subword)
+- ✅ Stopword removal & stemming (Sastrawi)
+- ✅ Outlier detection & removal
+- ✅ Vocabulary building & encoding
+- ✅ Train/val/test split (70/15/15)
+- ✅ Ready-to-use preprocessed data untuk training
 
 ## 📋 Prerequisites
 
@@ -54,29 +64,55 @@ Jika menggunakan VS Code:
 
 ## 📦 Installed Libraries
 
+### Core Data Processing:
 - **pandas** - Data manipulation dan analysis
 - **numpy** - Numerical computing
+- **beautifulsoup4** - HTML parsing dan cleaning
+
+### Visualization:
 - **matplotlib** - Plotting dan visualisasi
 - **seaborn** - Statistical data visualization
 - **wordcloud** - Word cloud generation
+
+### Indonesian NLP:
 - **sastrawi** - Indonesian language stemming dan stopwords
+
+### Machine Learning:
+- **scikit-learn** - Train/test split, preprocessing utilities
+- **torch** - PyTorch for deep learning
+- **transformers** - Hugging Face transformers (BERT, IndoBERT)
+
+### Development:
 - **jupyter** - Jupyter notebook
 - **ipykernel** - IPython kernel untuk Jupyter
 
 ## 📂 File Structure
 
 ```
-sumarizer-ai/
+liputan6-text-summarizer/
 ├── liputan6_data/          # Dataset JSON files
 │   └── canonical/
 │       ├── train/          # Training data (193,883 files)
 │       ├── test/           # Test data
 │       └── validation/     # Validation data
+├── output/
+│   └── preprocessed/       # Preprocessed data (generated after running notebook)
+│       ├── train.csv
+│       ├── val.csv
+│       ├── test.csv
+│       ├── vocab_seq2seq.pkl
+│       ├── config.json
+│       ├── X_train_seq2seq.npy
+│       ├── y_train_seq2seq.npy
+│       └── bert_data.pkl
 ├── liputan6_train.csv      # Converted CSV dataset
 ├── csv_converter.py        # JSON to CSV converter script
-├── Liputan6_EDA_Summarization_Colab_v4_2.ipynb  # Main analysis notebook
+├── Liputan6_EDA_Summarization_Colab_v4_2.ipynb  # Main EDA + Preprocessing notebook
+├── requirements.txt        # Python dependencies
 ├── Pipfile                 # Pipenv dependencies
 ├── Pipfile.lock           # Locked dependencies versions
+├── PREPROCESSING_GUIDE.md  # Detailed preprocessing documentation
+├── QUICKSTART.md          # Quick start guide
 └── README.md              # This file
 ```
 
@@ -131,18 +167,62 @@ python -m pipenv shell
 python csv_converter.py
 ```
 
-## 📝 Analysis Steps
+## 📝 Notebook Contents
 
-Notebook ini melakukan analisis sebagai berikut:
-
+### Part 1: EDA (Langkah 1-9)
 1. **Setup & Load Data** - Import libraries dan load CSV
 2. **Data Profiling** - Overview kolom dan statistik dasar
-3. **Missing Values** - Analisis nilai yang hilang
+3. **Missing Values** - Analisis nilai yang hilang dengan visualisasi
 4. **Text Length Distribution** - Distribusi panjang artikel dan ringkasan
 5. **Sentence Count** - Jumlah kalimat per artikel
 6. **Article Examples** - Contoh artikel terpendek dan terpanjang
-7. **Word Frequency** - Kata-kata yang paling sering muncul
+7. **Word Frequency** - Kata-kata yang paling sering muncul (dengan WordCloud)
 8. **Stopwords Analysis** - Analisis stopwords Bahasa Indonesia
+
+### Part 2: Preprocessing (Langkah 10-20)
+10. **Data Cleaning** - HTML removal, normalization, whitespace handling
+11. **Remove Duplicates** - Menghapus artikel duplikat
+12. **Tokenization** - Word-level tokenization untuk Seq2Seq
+13. **Stopword Removal & Stemming** - Sastrawi untuk Seq2Seq (preserved untuk BERT)
+14. **Noise & Outlier Removal** - Filter data berkualitas rendah
+15. **BERT Tokenization** - Subword tokenization dengan IndoBERT/mBERT
+16. **Vocabulary Building** - Build vocabulary dan encoding untuk Seq2Seq
+17. **Padding & Sequence Preparation** - Uniform sequence lengths
+18. **Train/Val/Test Split** - 70/15/15 split dengan validation
+19. **Preprocessing Validation** - Quality checks
+20. **Save Preprocessed Data** - Export untuk training
+
+## 🚀 Usage
+
+### Step 1: Install Dependencies
+
+```powershell
+pip install -r requirements.txt
+```
+
+### Step 2: Run the Notebook
+
+Open and run `Liputan6_EDA_Summarization_Colab_v4_2.ipynb` in Jupyter or Google Colab.
+
+### Step 3: Use Preprocessed Data
+
+After running the notebook, use the preprocessed data for model training:
+
+**For Seq2Seq models:**
+```python
+import numpy as np
+X_train = np.load('output/preprocessed/X_train_seq2seq.npy')
+y_train = np.load('output/preprocessed/y_train_seq2seq.npy')
+```
+
+**For BERT models:**
+```python
+import pickle
+with open('output/preprocessed/bert_data.pkl', 'rb') as f:
+    data = pickle.load(f)
+```
+
+See `QUICKSTART.md` for detailed examples and `PREPROCESSING_GUIDE.md` for complete documentation.
 
 ## 🐛 Troubleshooting
 
