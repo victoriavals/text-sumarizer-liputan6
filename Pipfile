@@ -12,6 +12,7 @@ sastrawi = "*"
 jupyter = "*"
 ipykernel = "*"
 seaborn = "*"
+transformers = "*"
 
 [dev-packages]
 seaborn = "*"
