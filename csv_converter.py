@@ -3,8 +3,21 @@ import csv
 import os
 from pathlib import Path
 
-path_input = "C:\\NaufalFirdaus\\CODES\\AI\\sumarizer-ai\\liputan6_data\\canonical\\train"
-path_output = "C:\\NaufalFirdaus\\CODES\\AI\\sumarizer-ai\\liputan6_train.csv"
+# Define paths for train, test, and validation
+paths = {
+    'train': {
+        'input': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_data\\canonical\\train",
+        'output': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_train.csv"
+    },
+    'test': {
+        'input': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_data\\canonical\\test",
+        'output': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_test.csv"
+    },
+    'validation': {
+        'input': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_data\\canonical\\validation",
+        'output': "C:\\NaufalFirdaus\\CODES\\AI\\liputan6-text-sumarizer\\liputan6_validation.csv"
+    }
+}
 
 def convert_to_text(list_of_lists):
     """Convert list of list of words to a single text string"""
@@ -57,4 +70,15 @@ def process_json_files(input_folder, output_csv):
         print("No data to write!")
 
 if __name__ == "__main__":
-    process_json_files(path_input, path_output)
+    print("="*60)
+    print("Converting Liputan6 JSON files to CSV")
+    print("="*60)
+    
+    # Process all three datasets
+    for dataset_name, dataset_paths in paths.items():
+        print(f"\n📂 Processing {dataset_name.upper()} dataset...")
+        process_json_files(dataset_paths['input'], dataset_paths['output'])
+    
+    print("\n" + "="*60)
+    print("✅ All datasets converted successfully!")
+    print("="*60)
