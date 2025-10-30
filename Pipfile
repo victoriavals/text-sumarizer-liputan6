@@ -16,6 +16,10 @@ transformers = "*"
 
 [dev-packages]
 seaborn = "*"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
+accelerate = ">=0.26.0"
 
 [requires]
 python_version = "3.13"
