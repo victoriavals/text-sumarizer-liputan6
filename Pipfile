@@ -3,23 +3,57 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[[source]]
+url = "https://download.pytorch.org/whl/cu118"
+verify_ssl = true
+name = "pytorch"
+
 [packages]
-pandas = "*"
-numpy = "*"
-matplotlib = "*"
-wordcloud = "*"
-sastrawi = "*"
-jupyter = "*"
-ipykernel = "*"
-seaborn = "*"
-transformers = "*"
+# Data Processing
+pandas = "==2.3.3"
+numpy = "==2.3.4"
+
+# Visualization
+matplotlib = "==3.10.7"
+seaborn = "==0.13.2"
+wordcloud = "==1.9.4"
+
+# NLP & Text Processing
+beautifulsoup4 = "==4.14.2"
+sastrawi = "==1.0.1"
+
+# Hugging Face Ecosystem
+transformers = "==4.57.1"
+tokenizers = "==0.22.1"
+datasets = "*"
+evaluate = "*"
+rouge-score = "*"
+huggingface-hub = "==0.36.0"
+safetensors = "==0.6.2"
+
+# Deep Learning (PyTorch with CUDA 11.8 support)
+torch = {version = "==2.5.1+cu118", index = "pytorch"}
+torchvision = {version = "==0.20.1+cu118", index = "pytorch"}
+torchaudio = {version = "==2.5.1+cu118", index = "pytorch"}
+accelerate = ">=0.26.0"
+
+# Jupyter Environment
+jupyter = "==1.1.1"
+jupyterlab = "==4.4.10"
+notebook = "==7.4.7"
+ipykernel = "==7.0.1"
+ipython = "==9.6.0"
+ipywidgets = "==8.1.7"
+
+# Utilities
+tqdm = "==4.67.1"
+regex = "==2025.10.23"
+requests = "==2.32.5"
+pyyaml = "==6.0.3"
+filelock = "==3.20.0"
+fsspec = "==2025.9.0"
 
 [dev-packages]
-seaborn = "*"
-torch = "*"
-torchvision = "*"
-torchaudio = "*"
-accelerate = ">=0.26.0"
 
 [requires]
 python_version = "3.13"
