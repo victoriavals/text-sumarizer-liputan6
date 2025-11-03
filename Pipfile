@@ -3,11 +3,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[[source]]
-url = "https://download.pytorch.org/whl/cu118"
-verify_ssl = true
-name = "pytorch"
-
 [packages]
 # Data Processing
 pandas = "==2.3.3"
@@ -31,10 +26,11 @@ rouge-score = "*"
 huggingface-hub = "==0.36.0"
 safetensors = "==0.6.2"
 
-# Deep Learning (PyTorch with CUDA 11.8 support)
-torch = {version = "==2.5.1+cu118", index = "pytorch"}
-torchvision = {version = "==0.20.1+cu118", index = "pytorch"}
-torchaudio = {version = "==2.5.1+cu118", index = "pytorch"}
+# Deep Learning (PyTorch - latest stable)
+# Note: Using CPU version for compatibility. For GPU, install separately
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
 accelerate = ">=0.26.0"
 
 # Jupyter Environment
@@ -44,6 +40,9 @@ notebook = "==7.4.7"
 ipykernel = "==7.0.1"
 ipython = "==9.6.0"
 ipywidgets = "==8.1.7"
+
+# Streamlit Deployment
+streamlit = "==1.39.0"
 
 # Utilities
 tqdm = "==4.67.1"
